@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>storo08 server</title>
+    <style>
+      body {
+        font-family: "Orbitron", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Twister Races Server</h1>
+      <p>
+        Server for storo08
+        <a href="https://storo08.ru/twister-races/" target="_blank"
+          >'twister races'</a
+        >
+        and
+        <a href="https://storo08.ru/chase/" target="_blank">'race chase'</a>
+        projects
+      </p>
+      <hr />
+    </header>
+    <main>
+      <section>
+        <h2>Twister Races Data</h2>
+        <ul>
+          <li>
+            Twister races player list
+            <ul>
+              <li>
+                <a href="./players" target="_blank">/players</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Twister races current week
+            <ul>
+              <li>
+                <a href="./current" target="_blank">/current</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Twister races previous week
+            <ul>
+              <li>
+                <a href="./previous" target="_blank">/previous</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <hr />
+      <section>
+        <h2>Race Chase Reports</h2>
+        <ul>
+          <li>
+            Race chase report
+            <ul>
+              <li>
+                <a href="./chase/2023-12-01" target="_blank" id="chase-report"
+                  >/chase/2023-12-01</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            Race chase update request
+            <ul>
+              <li>
+                <a
+                  href="./chase-update/2023-12-01"
+                  target="_blank"
+                  id="chase-update"
+                  >/chase-update/2023-12-01</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script>
+      const chaseReport = document.getElementById("chase-report");
+      const chaseUpdate = document.getElementById("chase-update");
+
+      const date = new Date().toISOString().slice(0, 10);
+
+      chaseReport.innerHTML = `/chase/${date}`;
+      chaseReport.setAttribute("href", `./chase/${date}`);
+
+      chaseUpdate.innerHTML = `/chase-update/${date}`;
+      chaseUpdate.setAttribute("href", `./chase-update/${date}`);
+    </script>
+  </body>
+</html>

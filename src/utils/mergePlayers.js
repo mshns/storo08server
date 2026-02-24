@@ -1,0 +1,23 @@
+export const mergePlayers = (existingPlayers, newPlayers) => {
+  const playersMap = new Map();
+
+  existingPlayers.forEach((player) => {
+    playersMap.set(player.username, {
+      username: player.username,
+      points: player.points,
+    });
+  });
+
+  newPlayers.forEach(({ username, points }) => {
+    if (playersMap.has(username)) {
+      const current = playersMap.get(username).points;
+      playersMap.get(username).points = current + points;
+    } else {
+      playersMap.set(username, { username, points: points });
+    }
+  });
+
+  const result = Array.from(playersMap.values());
+
+  return result.sort((a, b) => b.points - a.points);
+};

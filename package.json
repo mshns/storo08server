@@ -1,0 +1,33 @@
+{
+  "name": "storo08server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "server for storo08 'leaderboard' and 'race chase' projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --unhandled-rejections=strict server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mshns/storo08server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mshns/storo08server/issues"
+  },
+  "homepage": "https://github.com/mshns/storo08server#readme",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1",
+    "node-cron": "^4.2.1",
+    "node-telegram-bot-api": "^0.67.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
