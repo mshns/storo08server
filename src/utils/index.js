@@ -1,5 +1,5 @@
-export { bot } from './bot.js';
 export { calculatePoints } from './calculatePoints.js';
+export { bot, connectBot } from './connectBot.js';
 export { default as connectDatabase } from './connectDatabase.js';
 export { getPrizeAndBonus } from './getPrizeAndBonus.js';
 export { getTournaments } from './getTournaments.js';
