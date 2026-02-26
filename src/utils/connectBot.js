@@ -166,5 +166,5 @@ export const connectBot = () => {
     await bot.answerCallbackQuery(callbackQuery.id);
   });
 
-  console.log('🤖 Меню бота с навигацией подключено!');
+  console.log('🤖 connected to telegram');
 };

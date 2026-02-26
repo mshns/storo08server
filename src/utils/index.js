@@ -5,3 +5,5 @@ export { getPrizeAndBonus } from './getPrizeAndBonus.js';
 export { getTournaments } from './getTournaments.js';
 export { mergePlayers } from './mergePlayers.js';
 export { default as noCORS } from './noCORS.js';
+export { removeBoss } from './removeBoss.js';
+export { replaceUsername } from './replaceUsername.js';

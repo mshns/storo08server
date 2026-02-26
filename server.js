@@ -13,15 +13,16 @@ app.use(express.static('public'));
 routes.forEach((router) => app.use('/', router));
 
 connectDatabase();
+
 connectBot();
 
 // cronJobs();
 
-await sendLeaderboard();
+// await sendLeaderboard();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (error) => {
   error
     ? console.log(error)
-    : console.log(`🟢 listening on => http://localhost:${PORT}`);
+    : console.log(`🟩 listening on => http://localhost:${PORT}`);
 });
