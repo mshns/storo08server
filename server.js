@@ -1,7 +1,11 @@
 import express from 'express';
 import 'dotenv/config';
 import { routes } from './src/routes/index.js';
-import { cronJobs, sendLeaderboard } from './src/services/index.js';
+import {
+  cronJobs,
+  sendLeaderboard,
+  sendLeaderboardReport,
+} from './src/services/index.js';
 import { connectDatabase, connectBot, noCORS } from './src/utils/index.js';
 
 const app = express();
@@ -19,6 +23,8 @@ connectBot();
 // cronJobs();
 
 // await sendLeaderboard();
+
+await sendLeaderboardReport();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (error) => {

@@ -11,7 +11,8 @@ export const mergePlayers = (existingPlayers, newPlayers) => {
   newPlayers.forEach(({ username, points }) => {
     if (playersMap.has(username)) {
       const current = playersMap.get(username).points;
-      playersMap.get(username).points = current + points;
+      const sum = current + points;
+      playersMap.get(username).points = Number(sum.toFixed(2));
     } else {
       playersMap.set(username, { username, points: points });
     }

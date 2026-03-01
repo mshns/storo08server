@@ -1,32 +1,31 @@
 import { bot } from '../utils/index.js';
 import { Board } from '../models/index.js';
-import { getPrizeAndBonus } from '../utils/index.js';
+import {
+  getPrizeAndBonus,
+  removeBoss,
+  replaceUsername,
+} from '../utils/index.js';
 
-export const sendLeaderboard = async () => {
+export const sendLeaderboardReport = async () => {
   try {
-    const dailyBoard = await Board.findOne({ type: 'daily' });
+    const dailyBoard = await Board.findOne({ month: '2026-02', type: 'base' });
 
     if (!dailyBoard) {
       console.log('❌ Daily документ не найден');
       return;
     }
 
-    const withPrizes = getPrizeAndBonus(dailyBoard.players);
+    const withoutBoss = removeBoss(dailyBoard.players);
+    const withNicknames = await replaceUsername(withoutBoss);
+    const withPrizes = getPrizeAndBonus(withNicknames);
 
     const leaderboard = [
-      `🏁 <a href="https://www.vigorish.ru/section84/topic13528.html"><b>storo08 LEADERboard</b></a>`,
+      `🏁 Итоги <a href="https://www.vigorish.ru/section84/topic13528.html"><b>storo08 LEADERboard</b></a>`,
     ];
 
-    const updateMSK = new Date(dailyBoard.updatedAt);
-    // updateMSK.setHours(updateMSK.getHours() + 3);
-
-    const dateOptions = { month: 'long', day: 'numeric' };
-    const timeOptions = { hour: '2-digit', minute: '2-digit' };
-
-    const date = updateMSK.toLocaleString('ru', dateOptions);
-    const time = updateMSK.toLocaleString('ru', timeOptions);
-
-    leaderboard.push(`<i>Обновлено ${date} в ${time} по мск.</i>\n`);
+    leaderboard.push(
+      `🎉 Поздравляем всех призёров прошедшего лидерборда и желаем удачи в новом месяце!\n`,
+    );
 
     withPrizes.slice(0, 45).forEach((player) => {
       const prizeText = `💰 <b>${player.prize}</b>`;
@@ -41,7 +40,7 @@ export const sendLeaderboard = async () => {
     });
 
     leaderboard.push(
-      `46-${withPrizes.length}. <a href="https://mshns.github.io/storo08leaderboard/"> Остальные участники лидерборда</a>`,
+      `46-61. ${withPrizes[45].prize} | 62-75. ${withPrizes[61].prize} | 76-100. ${withPrizes[75].prize}`,
     );
 
     const message = await bot.sendMessage(

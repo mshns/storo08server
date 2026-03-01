@@ -3,6 +3,8 @@ import {
   getTournaments,
   calculatePoints,
   mergePlayers,
+  removeBoss,
+  replaceUsername,
 } from '../utils/index.js';
 
 export const updateDailyBoard = async (date) => {
@@ -39,6 +41,8 @@ export const updateDailyBoard = async (date) => {
   const mergedPlayers = mergePlayers(baseBoard.players, todayPoints);
   console.log(`✅ После мержа: ${mergedPlayers.length} игроков`);
 
+  const withoutBoss = removeBoss(mergedPlayers);
+  const withNicknames = await replaceUsername(withoutBoss);
   // 5. Обновляем processedDays (base дни + сегодня)
   const updatedProcessedDays = [...baseBoard.processedDays];
   if (!updatedProcessedDays.includes(date)) {
@@ -47,21 +51,12 @@ export const updateDailyBoard = async (date) => {
   }
 
   // 6. Сохраняем в daily
-  let dailyBoard = await Board.findOne({ month: monthKey, type: 'daily' });
+  const dailyBoard = await Board.findOne({ type: 'daily' });
 
-  if (!dailyBoard) {
-    console.log(`🟡 Создаем новый daily за ${monthKey}`);
-    dailyBoard = new Board({
-      month: monthKey,
-      type: 'daily',
-      players: mergedPlayers,
-      processedDays: updatedProcessedDays,
-    });
-  } else {
-    console.log(`🔄 Обновляем существующий daily`);
-    dailyBoard.players = mergedPlayers;
-    dailyBoard.processedDays = updatedProcessedDays;
-  }
+  console.log(`🔄 Обновляем существующий daily`);
+  dailyBoard.month = monthKey;
+  dailyBoard.players = withNicknames;
+  dailyBoard.processedDays = updatedProcessedDays;
 
   await dailyBoard.save();
   console.log(`✅ Daily сохранен за ${monthKey} с данными по ${date}`);
