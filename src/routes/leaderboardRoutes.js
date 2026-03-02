@@ -1,19 +1,11 @@
 import express from 'express';
 import { Board } from '../models/index.js';
-
 import { updateBaseBoard, updateDailyBoard } from '../services/index.js';
-import { removeBoss, replaceUsername } from '../utils/index.js';
-
-const getPreviousMonthKey = () => {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-
-  const prevYear = month === 0 ? year - 1 : year;
-  const prevMonth = month === 0 ? 11 : month - 1;
-
-  return `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}`;
-};
+import {
+  removeBoss,
+  replaceUsername,
+  getPreviousMonthKey,
+} from '../utils/index.js';
 
 const router = express.Router();
 
@@ -24,10 +16,8 @@ router.get('/download-base/:date', (req, res) => {
   res.end();
 });
 
-router.get('/update-daily/:date', (req, res) => {
-  updateDailyBoard(req.params.date).catch((err) =>
-    console.error('❌ error:', err.message),
-  );
+router.get('/update-board-daily', (_, res) => {
+  updateDailyBoard().catch((err) => console.error('❌ error:', err.message));
   res.end();
 });
 
@@ -43,12 +33,7 @@ router.get('/leaderboard/previous', async (_, res) => {
 
     const board = await Board.findOne({ month: monthKey, type: 'base' });
 
-    if (!board) {
-      return res.status(404).json({ error: 'Data not found' });
-    }
-
     const withoutBoss = removeBoss(board.players);
-
     const withNicknames = await replaceUsername(withoutBoss);
 
     res.status(200).json({

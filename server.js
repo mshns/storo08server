@@ -20,11 +20,10 @@ connectDatabase();
 
 connectBot();
 
-// cronJobs();
+cronJobs();
 
 // await sendLeaderboard();
-
-await sendLeaderboardReport();
+// await sendLeaderboardReport();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (error) => {

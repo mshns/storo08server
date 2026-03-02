@@ -1,32 +1,44 @@
-import cron from "node-cron";
-
+import cron from 'node-cron';
 import {
+  updateBaseBoard,
+  updateBaseChase,
+  updateDailyBoard,
+  updateDailyChase,
   sendFreeroll,
-  // sendLeaderboard,
-} from "./index.js";
+  sendLeaderboard,
+} from './index.js';
+import { getPreviousDate } from '../utils/index.js';
 
 const cronJobs = () => {
-  // Run every 10 minutes
-  cron.schedule("*/10 * * * *", () => {
-    const date = new Date().toISOString().slice(0, 10);
-    updateChase(date);
+  // run at 8:05 every day
+  cron.schedule('5 8 * * *', () => {
+    const date = getPreviousDate();
+    updateBaseChase(date);
   });
 
-  // Run at 11:55 AM every day
-  cron.schedule("55 11 * * *", () => {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const date = yesterday.toISOString().slice(0, 10);
-    updateChase(date);
+  // run at 8:35 every day
+  cron.schedule('35 8 * * *', () => {
+    const date = getPreviousDate();
+    updateBaseBoard(date);
   });
 
-  // Run at 8:30 AM, 2:30 PM, and 8:30 PM every day
-  cron.schedule("30 8,14,20 * * *", () => {
+  // run at 9:05, 12:05, 15:05, 18:05 and 21:05 every day
+  cron.schedule('5 9,12,15,18,21 * * *', () => {
+    updateDailyChase();
+  });
+
+  // run at 9:35 and 18:35 every day
+  cron.schedule('35 9,18 * * *', () => {
+    updateDailyBoard();
+  });
+
+  // run at 10:05 every day
+  cron.schedule('5 10 * * *', () => {
     sendLeaderboard();
   });
 
-  // Run at 5:00 PM on Fridays
-  cron.schedule("0 17 * * 5", () => {
+  // run at 5:00 pm on fridays
+  cron.schedule('0 17 * * 5', () => {
     sendFreeroll();
   });
 };

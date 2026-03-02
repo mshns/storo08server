@@ -1,6 +1,9 @@
 export { calculatePoints } from './calculatePoints.js';
 export { bot, connectBot } from './connectBot.js';
 export { default as connectDatabase } from './connectDatabase.js';
+export { getCurrentDate } from './getCurrentDate.js';
+export { getPreviousDate } from './getPreviousDate.js';
+export { getPreviousMonthKey } from './getPreviousMonthKey.js';
 export { getPrizeAndBonus } from './getPrizeAndBonus.js';
 export { getTournaments } from './getTournaments.js';
 export { getRake } from './getRake.js';
