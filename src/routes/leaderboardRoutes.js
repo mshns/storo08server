@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.get('/download-base/:date', (req, res) => {
+router.get('/update-board-base/:date', (req, res) => {
   updateBaseBoard(req.params.date).catch((err) =>
     console.error('❌ error:', err.message),
   );
@@ -21,18 +21,28 @@ router.get('/update-board-daily', (_, res) => {
   res.end();
 });
 
-router.get('/leaderboard/current', (_, res) => {
-  Board.findOne({ type: 'daily' }).then((board) => {
-    res.status(200).json(board);
-  });
+router.get('/leaderboard/current', async (_, res) => {
+  try {
+    const board = await Board.findOne({ type: 'daily' });
+    const players = board.players.map((player) => ({
+      username: player.username,
+      points: player.points,
+    }));
+
+    res.status(200).json({
+      players,
+      updatedAt: board.updatedAt,
+    });
+  } catch (error) {
+    console.error('❌ Error:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.get('/leaderboard/previous', async (_, res) => {
   try {
     const monthKey = getPreviousMonthKey();
-
     const board = await Board.findOne({ month: monthKey, type: 'base' });
-
     const withoutBoss = removeBoss(board.players);
     const withNicknames = await replaceUsername(withoutBoss);
 

@@ -22,18 +22,18 @@ const cronJobs = () => {
     updateBaseBoard(date);
   });
 
-  // run at 9:05, 12:05, 15:05, 18:05 and 21:05 every day
-  cron.schedule('5 9,12,15,18,21 * * *', () => {
+  // run at 5 minutes past every hour from 9 to 23
+  cron.schedule('5 9-23 * * *', () => {
     updateDailyChase();
   });
 
-  // run at 9:35 and 18:35 every day
-  cron.schedule('35 9,18 * * *', () => {
+  // run at 35 minutes past every 3rd hour from 9 to 23
+  cron.schedule('35 9-23/3 * * *', () => {
     updateDailyBoard();
   });
 
-  // run at 10:05 every day
-  cron.schedule('5 10 * * *', () => {
+  // run at 10:35 every day
+  cron.schedule('35 10 * * *', () => {
     sendLeaderboard();
   });
 

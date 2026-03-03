@@ -17,7 +17,6 @@ app.use(express.static('public'));
 routes.forEach((router) => app.use('/', router));
 
 connectDatabase();
-
 connectBot();
 
 cronJobs();

@@ -44,7 +44,7 @@ export const sendLeaderboardReport = async () => {
     );
 
     const message = await bot.sendMessage(
-      process.env.CHAT_ID,
+      process.env.CHANNEL_ID,
       leaderboard.join('\n'),
       {
         parse_mode: 'HTML',
