@@ -5,12 +5,6 @@ import { getPrizeAndBonus } from '../utils/index.js';
 export const sendLeaderboard = async () => {
   try {
     const dailyBoard = await Board.findOne({ type: 'daily' });
-
-    if (!dailyBoard) {
-      console.log('❌ Daily документ не найден');
-      return;
-    }
-
     const withPrizes = getPrizeAndBonus(dailyBoard.players);
 
     const leaderboard = [
@@ -18,7 +12,7 @@ export const sendLeaderboard = async () => {
     ];
 
     const updateMSK = new Date(dailyBoard.updatedAt);
-    // updateMSK.setHours(updateMSK.getHours() + 3);
+    updateMSK.setHours(updateMSK.getHours() + 3);
 
     const dateOptions = { month: 'long', day: 'numeric' };
     const timeOptions = { hour: '2-digit', minute: '2-digit' };
@@ -67,18 +61,18 @@ export const sendLeaderboard = async () => {
       },
     );
 
-    console.log(`✅ Лидерборд отправлен в Telegram`);
+    console.log(`✅ leaderboard sent to telegram chat`);
 
-    const delay =
-      new Date().getHours() < 17 ? 6 * 60 * 60 * 1000 : 12 * 60 * 60 * 1000;
-
+    const delay = 23 * 60 * 60 * 1000;
     setTimeout(() => {
       bot
         .deleteMessage(process.env.CHAT_ID, message.message_id)
-        .then(() => console.log('🗑️ Сообщение удалено'))
-        .catch((err) => console.log('❌ Ошибка удаления:', err.message));
+        .then(() =>
+          console.log('🗑️ previous leaderboard removed from telegram chat'),
+        )
+        .catch((err) => console.log('❌ error:', err.message));
     }, delay);
   } catch (error) {
-    console.error('❌ Ошибка отправки лидерборда:', error);
+    console.error('❌ error:', error);
   }
 };

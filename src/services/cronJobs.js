@@ -27,13 +27,13 @@ const cronJobs = () => {
     updateDailyChase();
   });
 
-  // run at 35 minutes past every 3rd hour from 9 to 23
-  cron.schedule('35 9-23/3 * * *', () => {
+  // run at 35 minutes past every 2nd hour from 9 to 23
+  cron.schedule('35 9-23/2 * * *', () => {
     updateDailyBoard();
   });
 
   // run at 10:35 every day
-  cron.schedule('35 10 * * *', () => {
+  cron.schedule('45 11 * * *', () => {
     sendLeaderboard();
   });
 
