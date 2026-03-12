@@ -30,13 +30,13 @@ export const getPrizeAndBonus = (players) => {
   return players
     .sort((a, b) => b.points - a.points)
     .map((player, index) => {
-      const position = index + 1; // ← добавляем position
+      const position = index + 1;
       const bonus = getBonus(player.points);
 
       return {
         username: player.username,
         points: player.points,
-        position, // ← ДОБАВЛЯЕМ position!
+        position,
         prize: getPrize(position),
         bonus,
       };

@@ -1,6 +1,7 @@
 import { bot } from '../utils/index.js';
 import { Board } from '../models/index.js';
 import {
+  getPreviousMonthKey,
   getPrizeAndBonus,
   removeBoss,
   replaceUsername,
@@ -8,7 +9,8 @@ import {
 
 export const sendLeaderboardReport = async () => {
   try {
-    const dailyBoard = await Board.findOne({ month: '2026-02', type: 'base' });
+    const prevMonth = getPreviousMonthKey();
+    const dailyBoard = await Board.findOne({ month: prevMonth, type: 'base' });
 
     if (!dailyBoard) {
       console.log('❌ Daily документ не найден');

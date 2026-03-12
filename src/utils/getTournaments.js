@@ -37,21 +37,15 @@ const fetchPage = async (tournamentType, date, page) => {
       currentPage: page,
     };
   } catch (error) {
-    console.error(
-      `❌ Ошибка загрузки ${tournamentType} стр.${page}: ${error.message}`,
-    );
+    console.error(`❌ error: ${error.message}`);
     throw error;
   }
 };
 
 const fetchAllPages = async (tournamentType, date) => {
-  console.log(`📥 Загрузка ${tournamentType} за ${date}...`);
-
   const firstPage = await fetchPage(tournamentType, date, 1);
   let allTournaments = [...firstPage.tournaments];
   const totalPages = firstPage.totalPages;
-
-  console.log(`📊 ${tournamentType}: страниц ${totalPages}`);
 
   const pagePromises = [];
   for (let page = 2; page <= totalPages; page++) {
@@ -62,21 +56,13 @@ const fetchAllPages = async (tournamentType, date) => {
 
   remainingPages.forEach((page) => {
     allTournaments = [...allTournaments, ...page.tournaments];
-    console.log(
-      `📊 ${tournamentType}: загружено ${page.currentPage}/${totalPages}`,
-    );
   });
 
-  console.log(
-    `✅ ${tournamentType}: загружено ${allTournaments.length} турниров`,
-  );
   return allTournaments;
 };
 
 export const getTournaments = async (date) => {
   try {
-    console.log(`\n🚀 Начинаем загрузку турниров за ${date}`);
-
     const [sngTournaments, mttTournaments] = await Promise.all([
       fetchAllPages('sngs', date),
       fetchAllPages('mtts', date),
@@ -84,10 +70,9 @@ export const getTournaments = async (date) => {
 
     const allTournaments = [...sngTournaments, ...mttTournaments];
 
-    console.log(`\n🎉 Всего загружено: ${allTournaments.length} турниров`);
     return allTournaments;
   } catch (error) {
-    console.error(`❌ Критическая ошибка: ${error.message}`);
+    console.error(`❌ error: ${error.message}`);
     throw error;
   }
 };
