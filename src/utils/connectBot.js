@@ -123,7 +123,7 @@ export const connectBot = () => {
           '<b>storo08 Twister Challenge</b> — это еженедельные челленджи для игроков низких лимитов €1, €2 и €3 твистеров на RedStar!\n\n' +
             'Сыграйте не менее 500 твистеров за неделю на лимите €1, €2 или €3 и получите 3 тикета своего лимита, 900 твистеров — 5 тикетов, 1400 твистеров — 9 тикетов.\n\n' +
             'К участию допускаются только игроки, <a href="https://c.rsppartners.com/clickthrgh?btag=a_9631b_75l_9">зарегистрированных на RedStar</a> с промокодом <b>storo08</b>.\n\n' +
-            'Для получения билетов необходимо <a href="https://www.vigorish.ru/section84/topic13421.html">оставить заявку</a>.',
+            'Для получения билетов необходимо <a href="https://www.vigorish.ru/section84/topic13467.html">оставить заявку</a>.',
         );
         break;
 
@@ -159,7 +159,7 @@ export const connectBot = () => {
             'Да, есть возможность присоединиться к партнёрской программе storo08. <a href="https://t.me/sanchess08">Напишите в лс</a> для уточнения деталей.\n\n' +
             '🔹 <b>Нужно ли регистрироваться в приватных акциях?</b>\n' +
             'Нет, достаточно <a href="https://c.rsppartners.com/clickthrgh?btag=a_9631b_75l_9">зарегистрироваться на RedStar</a> с промокодом <b>storo08</b> и получить доступ ко всем акциям и бонусам автоматически.\n' +
-            'Для получения билетов в акции storo08 Twister Challenge необходимо <a href="https://www.vigorish.ru/section84/topic13421.html">оставить заявку</a>.\n\n' +
+            'Для получения билетов в акции storo08 Twister Challenge необходимо <a href="https://www.vigorish.ru/section84/topic13467.html">оставить заявку</a>.\n\n' +
             '🔹 <b>Есть поддержка?</b>\n' +
             'Да, <a href="https://t.me/sanchess08">пишите в лс</a> — всегда поможем! 🤝',
         );
