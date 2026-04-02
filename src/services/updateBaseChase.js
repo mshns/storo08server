@@ -37,7 +37,6 @@ export const updateBaseChase = async (date) => {
     return;
   }
 
-  console.log(`📥 Загружаем ${date}...`);
   const dailyRake = await getRake(date);
 
   baseBoard.players = mergePlayers(baseBoard.players, dailyRake);
@@ -45,5 +44,5 @@ export const updateBaseChase = async (date) => {
   baseBoard.processedDays.sort();
 
   await baseBoard.save();
-  console.log(`✅ ${date} added`);
+  console.log(`✅ base chase update for ${date} completed`);
 };

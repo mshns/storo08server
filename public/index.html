@@ -56,9 +56,7 @@
             current month
             <ul>
               <li>
-                <a href="./chase/current" target="_blank"
-                  >/chase/current</a
-                >
+                <a href="./chase/current" target="_blank">/chase/current</a>
               </li>
             </ul>
           </li>
@@ -66,26 +64,12 @@
             previous month
             <ul>
               <li>
-                <a href="./chase/previous" target="_blank"
-                  >/chase/previous</a
-                >
+                <a href="./chase/previous" target="_blank">/chase/previous</a>
               </li>
             </ul>
           </li>
         </ul>
       </section>
     </main>
-    <script>
-      const chaseReport = document.getElementById('chase-report');
-      const chaseUpdate = document.getElementById('chase-update');
-
-      const date = new Date().toISOString().slice(0, 10);
-
-      chaseReport.innerHTML = `/chase/${date}`;
-      chaseReport.setAttribute('href', `./chase/${date}`);
-
-      chaseUpdate.innerHTML = `/chase-update/${date}`;
-      chaseUpdate.setAttribute('href', `./chase-update/${date}`);
-    </script>
   </body>
 </html>

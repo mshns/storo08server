@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>report</title>
+    <style>
+      body {
+        font-family: 'Orbitron', sans-serif;
+      }
+
+      section {
+        display: flex;
+        align-items: center;
+      }
+
+      h2 {
+        display: inline;
+      }
+
+      button {
+        height: 2em;
+        margin-left: 2em;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>storo08 reports</h1>
+      <p>monthly reports for 'leaderboard' and 'chase' projects</p>
+      <hr />
+    </header>
+    <main>
+      <section>
+        <h2>leaderboard report</h2>
+        <button id="leaderboard">download</button>
+      </section>
+      <hr />
+      <section>
+        <h2>chase report</h2>
+        <button id="chase">download</button>
+      </section>
+    </main>
+    <script>
+      const leaderboardBtn = document.getElementById('leaderboard');
+      const chaseBtn = document.getElementById('chase');
+
+      async function downloadReport(project) {
+        try {
+          const response = await fetch(`/report/${project}`);
+
+          if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+          }
+
+          const blob = await response.blob();
+
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+
+          const contentDisposition = response.headers.get(
+            'Content-Disposition',
+          );
+          let filename = `${project}-report.txt`;
+
+          if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+            if (filenameMatch) {
+              filename = filenameMatch[1];
+            }
+          }
+
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          alert('Не удалось скачать отчет: ' + error.message);
+          console.error('Ошибка:', error);
+        }
+      }
+
+      leaderboardBtn.addEventListener('click', () =>
+        downloadReport('leaderboard'),
+      );
+
+      chaseBtn.addEventListener('click', () => downloadReport('chase'));
+    </script>
+  </body>
+</html>

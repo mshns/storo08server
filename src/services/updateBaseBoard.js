@@ -41,7 +41,6 @@ export const updateBaseBoard = async (date) => {
     return;
   }
 
-  console.log(`📥 Загружаем ${date}...`);
   const tournaments = await getTournaments(date);
   const dailyPoints = calculatePoints(tournaments);
 
@@ -50,5 +49,5 @@ export const updateBaseBoard = async (date) => {
   baseBoard.processedDays.sort();
 
   await baseBoard.save();
-  console.log(`✅ ${date} added`);
+  console.log(`✅ base leaderboard update for ${date} completed`);
 };
