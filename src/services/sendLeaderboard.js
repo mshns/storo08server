@@ -8,7 +8,7 @@ export const sendLeaderboard = async () => {
     const withPrizes = getPrizeAndBonus(dailyBoard.players);
 
     const leaderboard = [
-      `🏁 <a href="https://www.vigorish.ru/section84/topic13528.html"><b>storo08 LEADERboard</b></a>`,
+      `🏁 <a href="https://storo08.com/leaderboard"><b>storo08 LEADERboard</b></a>`,
     ];
 
     const updateMSK = new Date(dailyBoard.updatedAt);
@@ -35,7 +35,7 @@ export const sendLeaderboard = async () => {
     });
 
     leaderboard.push(
-      `46-${withPrizes.length}. <a href="https://mshns.github.io/storo08leaderboard/"> Остальные участники лидерборда</a>`,
+      `46-${withPrizes.length}. <a href="https://storo08.com/leaderboard"> Остальные участники лидерборда</a>`,
     );
 
     const message = await bot.sendMessage(
@@ -49,7 +49,7 @@ export const sendLeaderboard = async () => {
             [
               {
                 text: '🏆 Лидерборд',
-                url: 'https://mshns.github.io/storo08leaderboard/',
+                url: 'https://storo08.com/leaderboard',
               },
               {
                 text: '🎁 Призы',

@@ -22,7 +22,7 @@ export const sendLeaderboardReport = async () => {
     const withPrizes = getPrizeAndBonus(withNicknames);
 
     const leaderboard = [
-      `🏁 Итоги <a href="https://www.vigorish.ru/section84/topic13528.html"><b>storo08 LEADERboard</b></a>`,
+      `🏁 Итоги <a href="https://storo08.com/leaderboard"><b>storo08 LEADERboard</b></a>`,
     ];
 
     leaderboard.push(
@@ -56,7 +56,7 @@ export const sendLeaderboardReport = async () => {
             [
               {
                 text: '🏆 Лидерборд',
-                url: 'https://mshns.github.io/storo08leaderboard/',
+                url: 'https://storo08.com/leaderboard',
               },
               {
                 text: '🎁 Призы',
