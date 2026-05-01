@@ -14,7 +14,7 @@ router.get('/hu-challenge', async (_, res) => {
 
     let targetDate = new Date(now);
 
-    if (currentDay === 5 && currentHour < 21) {
+    if (currentDay === 5 && currentHour < 18) {
       targetDate.setDate(targetDate.getDate() - 7);
     } else if (currentDay !== 5) {
       const daysToSubtract = (currentDay + (7 - 5)) % 7 || 7;
@@ -22,8 +22,8 @@ router.get('/hu-challenge', async (_, res) => {
     }
 
     const year = targetDate.getFullYear();
-    const month = String(targetDate.getMonth() + 1).padStart(2, "0");
-    const day = String(targetDate.getDate()).padStart(2, "0");
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+    const day = String(targetDate.getDate()).padStart(2, '0');
     const date = `${year}-${month}-${day}`;
 
     const response = await axios.get(`${API_URL}/mtts`, {
@@ -32,12 +32,13 @@ router.get('/hu-challenge', async (_, res) => {
     });
 
     const players = response.data.data
-      .filter(item => item.tournament_name === "Storo08 HU CHALLENGE Freeroll")
-      .map(item => item.username)
+      .filter(
+        (item) => item.tournament_name === 'Storo08 HU CHALLENGE Freeroll',
+      )
+      .map((item) => item.username)
       .sort((a, b) => a.localeCompare(b));
 
     res.status(200).json(players);
-
   } catch (error) {
     console.error('❌ error:', error);
     res.status(500).json({ error: error.message });
